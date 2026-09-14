@@ -170,7 +170,9 @@
       .cover-stage {
         position: relative;
         display: grid;
+        min-height: 520px;
         justify-items: center;
+        align-items: center;
       }
 
       .cover-stage::before {
@@ -195,6 +197,51 @@
         border: 4px solid var(--ink);
         border-radius: 8px;
         box-shadow: var(--shadow);
+      }
+
+      .cover-fan {
+        position: relative;
+        width: min(100%, 470px);
+        min-height: 500px;
+      }
+
+      .cover-fan img {
+        position: absolute;
+        width: clamp(150px, 36vw, 235px);
+        aspect-ratio: 386 / 500;
+        object-fit: cover;
+        border: 4px solid var(--ink);
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: var(--shadow);
+      }
+
+      .cover-fan img:nth-child(1) {
+        left: 4%;
+        top: 60px;
+        transform: rotate(-8deg);
+      }
+
+      .cover-fan img:nth-child(2) {
+        left: 30%;
+        top: 0;
+        z-index: 3;
+        transform: rotate(2deg);
+      }
+
+      .cover-fan img:nth-child(3) {
+        right: 0;
+        top: 86px;
+        z-index: 2;
+        transform: rotate(8deg);
+      }
+
+      .cover-fan img:nth-child(4) {
+        left: 22%;
+        top: 238px;
+        z-index: 4;
+        width: clamp(140px, 31vw, 205px);
+        transform: rotate(-1deg);
       }
 
       .quick-strip {
@@ -279,32 +326,6 @@
         border: 3px solid var(--ink);
         border-radius: 6px;
         box-shadow: 7px 7px 0 rgba(32, 25, 54, 0.18);
-      }
-
-      .cover-tile {
-        display: grid;
-        width: min(100%, 190px);
-        aspect-ratio: 386 / 500;
-        place-items: center;
-        padding: 18px;
-        border: 3px solid var(--ink);
-        border-radius: 6px;
-        background: #fff;
-        box-shadow: 7px 7px 0 rgba(32, 25, 54, 0.18);
-        text-align: center;
-      }
-
-      .cover-tile span {
-        display: block;
-        font-size: 3rem;
-        line-height: 1;
-      }
-
-      .cover-tile strong {
-        display: block;
-        margin-top: 10px;
-        font-size: 1.2rem;
-        line-height: 1.05;
       }
 
       .book-body {
@@ -424,6 +445,15 @@
           width: min(72vw, 340px);
         }
 
+        .cover-stage {
+          min-height: 470px;
+        }
+
+        .cover-fan {
+          min-height: 445px;
+          width: min(100%, 430px);
+        }
+
         .quick-strip,
         .faq {
           grid-template-columns: 1fr;
@@ -467,6 +497,23 @@
           min-height: 230px;
         }
 
+        .cover-stage {
+          min-height: 390px;
+        }
+
+        .cover-fan {
+          min-height: 370px;
+        }
+
+        .cover-fan img {
+          width: clamp(126px, 43vw, 170px);
+        }
+
+        .cover-fan img:nth-child(4) {
+          width: clamp(118px, 38vw, 154px);
+          top: 204px;
+        }
+
         .trust-band {
           padding: 20px;
         }
@@ -486,7 +533,9 @@
               "name": "Princess Adventure Coloring Book: Fun and Easy Coloring Pages for Kids Ages 3-8",
               "bookFormat": "https://schema.org/Paperback",
               "audience": "Children ages 3-8",
-              "about": "Princesses, castles, unicorns, fairies and magical adventures"
+              "about": "Princesses, castles, unicorns, fairies and magical adventures",
+              "url": "https://www.amazon.com/dp/B0H32C3M4K",
+              "image": "assets/cover-B0H32C3M4K.jpg"
             }
           },
           {
@@ -497,7 +546,9 @@
               "name": "Baby Animals Coloring Book: Fun and Easy Coloring Pages for Kids Ages 3-8",
               "bookFormat": "https://schema.org/Paperback",
               "audience": "Children ages 3-8",
-              "about": "Cute baby animals and easy coloring pages"
+              "about": "Cute baby animals and easy coloring pages",
+              "url": "https://www.amazon.com/dp/B0H7MTZ9S8",
+              "image": "assets/cover-B0H7MTZ9S8.jpg"
             }
           },
           {
@@ -505,10 +556,25 @@
             "position": 3,
             "item": {
               "@type": "Book",
+              "name": "Princess Adventure Coloring Book: Fun & Easy Coloring Pages for Kids Ages 3-6",
+              "bookFormat": "https://schema.org/Paperback",
+              "audience": "Children ages 3-6",
+              "about": "Beginner-friendly princess coloring pages for young kids",
+              "url": "https://www.amazon.com/dp/B0H29NPB7N",
+              "image": "assets/cover-B0H29NPB7N.jpg"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "item": {
+              "@type": "Book",
               "name": "Prince Adventure Coloring Book: Fun and Easy Coloring Pages for Kids Ages 3-8",
               "bookFormat": "https://schema.org/Paperback",
               "audience": "Children ages 3-8",
-              "about": "Brave princes, castles, dragons, knights and magical adventures"
+              "about": "Brave princes, castles, dragons, knights and magical adventures",
+              "url": "https://www.amazon.com/dp/B0H323CLFD",
+              "image": "assets/cover-B0H323CLFD.jpg"
             }
           }
         ]
@@ -540,11 +606,16 @@
           </p>
           <div class="hero-actions">
             <a class="button" href="#books">Shop the books</a>
-            <a class="button secondary" href="https://www.amazon.com/s?k=Princess+Adventure+Coloring+Book+Fun+and+Easy+Coloring+Pages+for+Kids+Ages+3-8" target="_blank" rel="noopener sponsored">Find on Amazon</a>
+            <a class="button secondary" href="https://www.amazon.com/dp/B0H32C3M4K" target="_blank" rel="noopener sponsored">Featured on Amazon</a>
           </div>
         </div>
-        <div class="cover-stage" aria-label="Baby Animals Coloring Book cover">
-          <img class="featured-cover" src="assets/baby-animals-coloring-book.png" alt="Baby Animals Coloring Book cover for ages 3 to 8 with cute animals">
+        <div class="cover-stage" aria-label="Children's coloring book covers">
+          <div class="cover-fan">
+            <img src="assets/cover-B0H32C3M4K.jpg" alt="Princess Adventure Coloring Book cover for ages 3 to 8">
+            <img src="assets/cover-B0H7MTZ9S8.jpg" alt="Baby Animals Coloring Book cover for ages 3 to 8">
+            <img src="assets/cover-B0H323CLFD.jpg" alt="Prince Adventure Coloring Book cover for ages 3 to 8">
+            <img src="assets/cover-B0H29NPB7N.jpg" alt="Princess Adventure Coloring Book cover with castle scene">
+          </div>
         </div>
       </div>
 
@@ -567,16 +638,13 @@
         <div class="site-shell">
           <div class="section-heading">
             <h2>Shop coloring books on Amazon</h2>
-            <p>Choose a title below to open Amazon and buy the paperback edition. These links use focused Amazon searches until the exact product links are added.</p>
+            <p>Choose a title below to open the exact Amazon product page and buy the paperback edition.</p>
           </div>
 
           <div class="book-grid">
             <article class="book-card">
               <div class="book-media">
-                <div class="cover-tile" aria-hidden="true">
-                  <span>♛</span>
-                  <strong>Princess Adventure Coloring Book</strong>
-                </div>
+                <img src="assets/cover-B0H32C3M4K.jpg" alt="Princess Adventure Coloring Book cover for ages 3 to 8">
               </div>
               <div class="book-body">
                 <h3>Princess Adventure Coloring Book: Ages 3-8</h3>
@@ -586,13 +654,13 @@
                   <span class="tag">Unicorns</span>
                   <span class="tag">Ages 3-8</span>
                 </div>
-                <a class="button" href="https://www.amazon.com/s?k=Princess+Adventure+Coloring+Book+Fun+and+Easy+Coloring+Pages+for+Kids+Ages+3-8+Cute+Princesses+Castles+Unicorns+Fairies+Magical+Adventures" target="_blank" rel="noopener sponsored">Buy on Amazon</a>
+                <a class="button" href="https://www.amazon.com/dp/B0H32C3M4K" target="_blank" rel="noopener sponsored">Buy on Amazon</a>
               </div>
             </article>
 
             <article class="book-card">
               <div class="book-media">
-                <img src="assets/baby-animals-coloring-book.png" alt="Baby Animals Coloring Book for kids ages 3 to 8">
+                <img src="assets/cover-B0H7MTZ9S8.jpg" alt="Baby Animals Coloring Book cover for kids ages 3 to 8">
               </div>
               <div class="book-body">
                 <h3>Baby Animals Coloring Book: Ages 3-8</h3>
@@ -602,16 +670,13 @@
                   <span class="tag">Easy pages</span>
                   <span class="tag">Ages 3-8</span>
                 </div>
-                <a class="button" href="https://www.amazon.com/s?k=Baby+Animals+Coloring+Book+Fun+and+Easy+Coloring+Pages+for+Kids+Ages+3-8" target="_blank" rel="noopener sponsored">Buy on Amazon</a>
+                <a class="button" href="https://www.amazon.com/dp/B0H7MTZ9S8" target="_blank" rel="noopener sponsored">Buy on Amazon</a>
               </div>
             </article>
 
             <article class="book-card">
               <div class="book-media">
-                <div class="cover-tile" aria-hidden="true">
-                  <span>✦</span>
-                  <strong>Princess Adventure Coloring Book</strong>
-                </div>
+                <img src="assets/cover-B0H29NPB7N.jpg" alt="Princess Adventure Coloring Book cover for young kids">
               </div>
               <div class="book-body">
                 <h3>Princess Adventure Coloring Book: Ages 3-6</h3>
@@ -621,16 +686,13 @@
                   <span class="tag">Simple designs</span>
                   <span class="tag">Ages 3-6</span>
                 </div>
-                <a class="button" href="https://www.amazon.com/s?k=Princess+Adventure+Coloring+Book+Fun+Easy+Coloring+Pages+for+Kids+Ages+3-6" target="_blank" rel="noopener sponsored">Buy on Amazon</a>
+                <a class="button" href="https://www.amazon.com/dp/B0H29NPB7N" target="_blank" rel="noopener sponsored">Buy on Amazon</a>
               </div>
             </article>
 
             <article class="book-card">
               <div class="book-media">
-                <div class="cover-tile" aria-hidden="true">
-                  <span>⚔</span>
-                  <strong>Prince Adventure Coloring Book</strong>
-                </div>
+                <img src="assets/cover-B0H323CLFD.jpg" alt="Prince Adventure Coloring Book cover for ages 3 to 8">
               </div>
               <div class="book-body">
                 <h3>Prince Adventure Coloring Book: Ages 3-8</h3>
@@ -640,7 +702,7 @@
                   <span class="tag">Dragons</span>
                   <span class="tag">Ages 3-8</span>
                 </div>
-                <a class="button" href="https://www.amazon.com/s?k=Prince+Adventure+Coloring+Book+Fun+and+Easy+Coloring+Pages+for+Kids+Ages+3-8+Brave+Princes+Castles+Dragons+Knights+Magical+Adventures" target="_blank" rel="noopener sponsored">Buy on Amazon</a>
+                <a class="button" href="https://www.amazon.com/dp/B0H323CLFD" target="_blank" rel="noopener sponsored">Buy on Amazon</a>
               </div>
             </article>
           </div>
