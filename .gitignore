@@ -1,4 +1,8 @@
 .git-safeconfig
+node_modules/
+.next/
+.env
+.env.local
 package-stage*/
 site-archive*.tar.gz
 tmp/
