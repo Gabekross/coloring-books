@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Children's Coloring Books for Ages 3-8 | Princess, Prince & Baby Animals</title>
-    <meta name="description" content="Shop fun and easy children's coloring books for ages 3-8, including princess adventures, prince adventures, castles, unicorns, dragons, fairies, and cute baby animals.">
+    <meta name="description" content="Shop fun and easy children's coloring books for ages 3-8, including princess adventures, prince adventures, castles, unicorns, dragons, fairies, cute baby animals, and real sample coloring pages.">
     <meta name="keywords" content="children's coloring books, coloring books for kids ages 3-8, princess coloring book, baby animals coloring book, prince coloring book, toddler coloring book, preschool coloring pages, Amazon coloring books">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="Fun & Easy Coloring Books for Kids Ages 3-8">
@@ -299,6 +299,88 @@
         gap: 18px;
       }
 
+      .sample-section {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 244, 168, 0.22));
+        border-block: 3px solid rgba(32, 25, 54, 0.08);
+      }
+
+      .sample-intro {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(260px, 0.55fr);
+        gap: 22px;
+        align-items: end;
+        margin-bottom: 24px;
+      }
+
+      .sample-note {
+        padding: 18px;
+        border: 3px solid var(--ink);
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 6px 6px 0 rgba(32, 25, 54, 0.13);
+      }
+
+      .sample-note strong {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 1.08rem;
+      }
+
+      .sample-note p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .sample-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .sample-page {
+        margin: 0;
+        overflow: hidden;
+        border: 3px solid var(--ink);
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 8px 8px 0 rgba(32, 25, 54, 0.13);
+      }
+
+      .sample-page img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 612 / 792;
+        object-fit: cover;
+        background: #fff;
+      }
+
+      .sample-page figcaption {
+        min-height: 52px;
+        padding: 10px 12px;
+        border-top: 3px solid var(--ink);
+        color: var(--muted);
+        font-weight: 800;
+      }
+
+      .sample-cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 22px;
+        padding: 18px;
+        border: 3px solid var(--ink);
+        border-radius: 8px;
+        background: var(--mint);
+      }
+
+      .sample-cta p {
+        max-width: 680px;
+        margin: 0;
+        font-weight: 900;
+      }
+
       .book-card {
         display: flex;
         min-height: 100%;
@@ -455,11 +537,16 @@
         }
 
         .quick-strip,
-        .faq {
+        .faq,
+        .sample-intro {
           grid-template-columns: 1fr;
         }
 
         .book-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .sample-grid {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
       }
@@ -491,6 +578,14 @@
 
         .book-grid {
           grid-template-columns: 1fr;
+        }
+
+        .sample-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .sample-cta .button {
+          width: 100%;
         }
 
         .book-media {
@@ -590,6 +685,7 @@
         </a>
         <div class="nav-links">
           <a href="#books">Books</a>
+          <a href="#preview">See Inside</a>
           <a href="#why">Why Parents Like Them</a>
           <a href="#questions">Questions</a>
         </div>
@@ -633,6 +729,45 @@
           <span>Princes, knights, dragons, castles, and imaginative journeys.</span>
         </div>
       </div>
+
+      <section id="preview" class="sample-section">
+        <div class="site-shell">
+          <div class="sample-intro">
+            <div class="section-heading">
+              <h2>See inside the Princess Adventure book</h2>
+              <p>Real sample pages help parents know what they are buying: bold outlines, cute princess themes, and simple activities that invite kids to color, count, and search.</p>
+            </div>
+            <div class="sample-note">
+              <strong>Better than a placeholder video</strong>
+              <p>Until you have a real hands-on coloring video, interior page previews give shoppers proof that the book has kid-friendly pages inside.</p>
+            </div>
+          </div>
+
+          <div class="sample-grid" aria-label="Sample coloring pages from Princess Adventure Coloring Book">
+            <figure class="sample-page">
+              <img src="assets/sample-pages/princess-dancing.png" alt="Sample coloring page titled Princess dancing">
+              <figcaption>Princess dancing</figcaption>
+            </figure>
+            <figure class="sample-page">
+              <img src="assets/sample-pages/princess-bunny.png" alt="Sample coloring page titled Princess and bunny">
+              <figcaption>Princess and bunny</figcaption>
+            </figure>
+            <figure class="sample-page">
+              <img src="assets/sample-pages/princess-butterflies.png" alt="Sample coloring page titled Princess and butterflies">
+              <figcaption>Princess and butterflies</figcaption>
+            </figure>
+            <figure class="sample-page">
+              <img src="assets/sample-pages/princess-balloons.png" alt="Sample coloring page titled Princess with star balloons">
+              <figcaption>Princess with star balloons</figcaption>
+            </figure>
+          </div>
+
+          <div class="sample-cta">
+            <p>Like these pages? Open the Princess Adventure Coloring Book on Amazon and order the paperback.</p>
+            <a class="button" href="https://www.amazon.com/dp/B0H32C3M4K" target="_blank" rel="noopener sponsored">Buy on Amazon</a>
+          </div>
+        </div>
+      </section>
 
       <section id="books">
         <div class="site-shell">
