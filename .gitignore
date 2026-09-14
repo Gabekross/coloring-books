@@ -1,0 +1,5 @@
+.git-safeconfig
+package-stage*/
+site-archive*.tar.gz
+tmp/
+worker/sample-previews/
