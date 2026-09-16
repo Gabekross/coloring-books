@@ -14,8 +14,7 @@ const samplePages = [
 
 export default async function HomePage() {
   const books = await getVisibleBooks();
-  const featured = books.filter((book) => book.featured).slice(0, 4);
-  const heroBooks = featured.length ? featured : books.slice(0, 4);
+  const heroBooks = books.slice(0, 4);
   const princessBook = books.find((book) => book.asin === "B0H32C3M4K") ?? books[0];
 
   return (
@@ -44,7 +43,7 @@ export default async function HomePage() {
         <div className="site-shell hero">
           <div>
             <p className="eyebrow">Fun and easy coloring pages for ages 3-8</p>
-            <h1>Children's coloring books made for big imaginations and little hands.</h1>
+            <h1>Fun coloring books for kids ages 3-8.</h1>
             <p className="hero-copy">
               Discover princess adventures, brave prince quests, castles, unicorns, dragons, fairies, and adorable baby animals. Each book is designed for simple, screen-free creative time at home, in preschool, during travel, or as a cheerful gift.
             </p>
@@ -76,10 +75,6 @@ export default async function HomePage() {
               <div className="section-heading">
                 <h2>See inside the Princess Adventure book</h2>
                 <p>Real sample pages help parents know what they are buying: bold outlines, cute princess themes, and simple activities that invite kids to color, count, and search.</p>
-              </div>
-              <div className="sample-note">
-                <strong>Better than a placeholder video</strong>
-                <p>Until you have a real hands-on coloring video, interior page previews give shoppers proof that the book has kid-friendly pages inside.</p>
               </div>
             </div>
             <div className="sample-grid" aria-label="Sample coloring pages from Princess Adventure Coloring Book">
