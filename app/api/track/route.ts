@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSupabaseAdmin, hasSupabaseEnv } from "@/lib/supabase";
+import { getSupabaseAdmin, hasServiceRoleEnv } from "@/lib/supabase";
 
 const allowedEvents = new Set(["book_view", "sample_view", "amazon_click", "page_view"]);
 
 export async function POST(request: NextRequest) {
-  if (!hasSupabaseEnv()) return NextResponse.json({ ok: true });
+  if (!hasServiceRoleEnv()) return NextResponse.json({ ok: true });
   const payload = await request.json().catch(() => ({}));
   const eventType = allowedEvents.has(payload.eventType) ? payload.eventType : "page_view";
   const userAgent = request.headers.get("user-agent") || "";

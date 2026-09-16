@@ -1,5 +1,5 @@
 import { Book } from "./types";
-import { getSupabaseAdmin, hasSupabaseEnv } from "./supabase";
+import { getSupabaseAdmin, getSupabasePublic, hasSupabaseEnv } from "./supabase";
 
 export const fallbackBooks: Book[] = [
   {
@@ -63,7 +63,7 @@ export const fallbackBooks: Book[] = [
 export async function getVisibleBooks() {
   if (!hasSupabaseEnv()) return fallbackBooks;
 
-  const supabase = getSupabaseAdmin();
+  const supabase = getSupabasePublic();
   const { data, error } = await supabase
     .from("books")
     .select("*")
@@ -71,7 +71,7 @@ export async function getVisibleBooks() {
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: true });
 
-  if (error) throw error;
+  if (error) return fallbackBooks;
   return (data ?? []) as Book[];
 }
 
