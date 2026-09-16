@@ -5,17 +5,56 @@ import { Tracking } from "@/components/Tracking";
 
 export const dynamic = "force-dynamic";
 
-const samplePages = [
-  ["princess-dancing.png", "Princess dancing", "Sample coloring page titled Princess dancing"],
-  ["princess-bunny.png", "Princess and bunny", "Sample coloring page titled Princess and bunny"],
-  ["princess-butterflies.png", "Princess and butterflies", "Sample coloring page titled Princess and butterflies"],
-  ["princess-balloons.png", "Princess with star balloons", "Sample coloring page titled Princess with star balloons"]
+type SamplePreview = {
+  asin: string;
+  heading: string;
+  intro: string;
+  cta: string;
+  pages: {
+    file: string;
+    title: string;
+    alt: string;
+  }[];
+};
+
+const samplePreviews: SamplePreview[] = [
+  {
+    asin: "B0H32C3M4K",
+    heading: "See inside the Princess Adventure book",
+    intro: "Two real sample pages help parents see the bold outlines, cute princess themes, and simple activities inside.",
+    cta: "Like these pages? Open the Princess Adventure Coloring Book on Amazon and order the paperback.",
+    pages: [
+      { file: "princess-dancing.png", title: "Princess dancing", alt: "Sample coloring page titled Princess dancing" },
+      { file: "princess-bunny.png", title: "Princess and bunny", alt: "Sample coloring page titled Princess and bunny" }
+    ]
+  },
+  {
+    asin: "B0H323CLFD",
+    heading: "See inside the Prince Adventure book",
+    intro: "Preview brave prince scenes with castles, treasure maps, and easy shapes made for young colorers.",
+    cta: "Ready for a brave adventure? Open the Prince Adventure Coloring Book on Amazon.",
+    pages: [
+      { file: "prince-castle.png", title: "The brave prince's castle", alt: "Sample coloring page from Prince Adventure Coloring Book showing a prince in front of a castle" },
+      { file: "prince-treasure-map.png", title: "Treasure map adventure", alt: "Sample coloring page from Prince Adventure Coloring Book showing a prince holding a treasure map" }
+    ]
+  },
+  {
+    asin: "B0H7MTZ9S8",
+    heading: "See inside the Baby Animals book",
+    intro: "A quick look at the sweet animal pages parents can expect: friendly faces, big shapes, and simple scenes.",
+    cta: "Love the baby animals? Open the Baby Animals Coloring Book on Amazon.",
+    pages: [
+      { file: "baby-elephant.png", title: "Baby elephant", alt: "Sample coloring page from Baby Animals Coloring Book showing a baby elephant splashing water" },
+      { file: "kitten.png", title: "Playful kitten", alt: "Sample coloring page from Baby Animals Coloring Book showing a kitten playing with yarn" }
+    ]
+  }
 ];
 
 export default async function HomePage() {
   const books = await getVisibleBooks();
   const heroBooks = books.slice(0, 4);
   const princessBook = books.find((book) => book.asin === "B0H32C3M4K") ?? books[0];
+  const booksByAsin = new Map(books.map((book) => [book.asin, book]));
 
   return (
     <>
@@ -85,22 +124,13 @@ export default async function HomePage() {
           <div className="site-shell">
             <div className="sample-intro">
               <div className="section-heading">
-                <h2>See inside the Princess Adventure book</h2>
-                <p>Real sample pages help parents know what they are buying: bold outlines, cute princess themes, and simple activities that invite kids to color, count, and search.</p>
+                <h2>See inside the books</h2>
+                <p>Each preview keeps things short and useful: two sample pages per book, so shoppers can compare styles without scrolling forever.</p>
               </div>
             </div>
-            <div className="sample-grid" aria-label="Sample coloring pages from Princess Adventure Coloring Book">
-              {samplePages.map(([file, title, alt]) => (
-                <figure className="sample-page" key={file}>
-                  <img src={`/assets/sample-pages/${file}`} alt={alt} />
-                  <figcaption>{title}</figcaption>
-                </figure>
-              ))}
-            </div>
-            <div className="sample-cta">
-              <p>Like these pages? Open the Princess Adventure Coloring Book on Amazon and order the paperback.</p>
-              {princessBook ? <a className="button" href={`/api/go/${princessBook.id}`} data-track-click={princessBook.id}>Buy on Amazon</a> : null}
-            </div>
+            {samplePreviews.map((preview) => (
+              <SampleSection key={preview.asin} preview={preview} book={booksByAsin.get(preview.asin)} />
+            ))}
           </div>
         </section>
 
@@ -139,6 +169,29 @@ export default async function HomePage() {
       </footer>
       <Tracking />
     </>
+  );
+}
+
+function SampleSection({ preview, book }: { preview: SamplePreview; book?: Book }) {
+  return (
+    <article className="sample-block">
+      <div className="sample-copy">
+        <h3>{preview.heading}</h3>
+        <p>{preview.intro}</p>
+      </div>
+      <div className="sample-grid" aria-label={`Sample coloring pages from ${preview.heading.replace("See inside the ", "")}`}>
+        {preview.pages.map((page) => (
+          <figure className="sample-page" key={page.file}>
+            <img src={`/assets/sample-pages/${page.file}`} alt={page.alt} />
+            <figcaption>{page.title}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <div className="sample-cta">
+        <p>{preview.cta}</p>
+        {book ? <a className="button" href={`/api/go/${book.id}`} data-track-click={book.id}>Buy on Amazon</a> : null}
+      </div>
+    </article>
   );
 }
 
