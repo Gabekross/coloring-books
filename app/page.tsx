@@ -86,8 +86,9 @@ export default async function HomePage() {
             <p className="hero-copy">
               Discover princess adventures, brave prince quests, castles, unicorns, dragons, fairies, and adorable baby animals. Each book is designed for simple, screen-free creative time at home, in preschool, during travel, or as a cheerful gift.
             </p>
+            <p className="hero-promise">Unlock your child's creativity with simple, joyful coloring pages.</p>
             <div className="hero-actions">
-              <a className="button" href="#books">Shop the books</a>
+              <a className="button" href="#books">Start coloring today</a>
               {princessBook ? (
                 <a className="button secondary" href={`/api/go/${princessBook.id}`} data-track-click={princessBook.id}>Featured on Amazon</a>
               ) : null}
@@ -112,7 +113,7 @@ export default async function HomePage() {
           <div className="site-shell">
             <div className="section-heading">
               <h2>Shop coloring books on Amazon</h2>
-              <p>Choose a title below to open the exact Amazon product page and buy the paperback edition.</p>
+              <p>Ready for screen-free creative time? Choose a book below to open the exact Amazon product page and buy the paperback edition.</p>
             </div>
             <div className="book-grid">
               {books.map((book) => <BookCard key={book.id} book={book} />)}
