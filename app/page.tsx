@@ -69,6 +69,18 @@ export default async function HomePage() {
           <div className="quick-pill"><strong>Brave quests</strong><span>Princes, knights, dragons, castles, and imaginative journeys.</span></div>
         </div>
 
+        <section id="books">
+          <div className="site-shell">
+            <div className="section-heading">
+              <h2>Shop coloring books on Amazon</h2>
+              <p>Choose a title below to open the exact Amazon product page and buy the paperback edition.</p>
+            </div>
+            <div className="book-grid">
+              {books.map((book) => <BookCard key={book.id} book={book} />)}
+            </div>
+          </div>
+        </section>
+
         <section id="preview" className="sample-section">
           <div className="site-shell">
             <div className="sample-intro">
@@ -88,18 +100,6 @@ export default async function HomePage() {
             <div className="sample-cta">
               <p>Like these pages? Open the Princess Adventure Coloring Book on Amazon and order the paperback.</p>
               {princessBook ? <a className="button" href={`/api/go/${princessBook.id}`} data-track-click={princessBook.id}>Buy on Amazon</a> : null}
-            </div>
-          </div>
-        </section>
-
-        <section id="books">
-          <div className="site-shell">
-            <div className="section-heading">
-              <h2>Shop coloring books on Amazon</h2>
-              <p>Choose a title below to open the exact Amazon product page and buy the paperback edition.</p>
-            </div>
-            <div className="book-grid">
-              {books.map((book) => <BookCard key={book.id} book={book} />)}
             </div>
           </div>
         </section>
