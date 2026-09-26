@@ -46,22 +46,22 @@ export function verifyAdminPassword(email: string, password: string) {
 
 export function createAdminSession() {
   const expires = Math.floor(Date.now() / 1000) + sessionMaxAgeSeconds;
-  const payload = `${getAdminEmail()}.${expires}`;
+  const payload = String(expires);
   const signature = sign(payload);
   return `${payload}.${signature}`;
 }
 
 export function verifyAdminSession(value: string) {
   const parts = value.split(".");
-  if (parts.length !== 3) return false;
+  if (parts.length !== 2) return false;
 
-  const [email, expiresValue, signature] = parts;
+  const [expiresValue, signature] = parts;
   const expires = Number.parseInt(expiresValue, 10);
-  if (email !== getAdminEmail() || !Number.isFinite(expires) || expires < Math.floor(Date.now() / 1000)) {
+  if (!Number.isFinite(expires) || expires < Math.floor(Date.now() / 1000)) {
     return false;
   }
 
-  return safeEqual(signature, sign(`${email}.${expires}`));
+  return safeEqual(signature, sign(expiresValue));
 }
 
 export function getAdminCookieOptions() {

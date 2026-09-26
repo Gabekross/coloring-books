@@ -80,12 +80,30 @@ export function AdminClient({ supabaseUrl, supabaseAnonKey }: Props) {
   }
 
   async function loadAdmin() {
-    const [booksResponse, analyticsResponse] = await Promise.all([
-      authedFetch("/api/admin/books"),
-      authedFetch("/api/analytics")
-    ]);
-    if (booksResponse.ok) setBooks(await booksResponse.json());
-    if (analyticsResponse.ok) setAnalytics(await analyticsResponse.json());
+    try {
+      const [booksResponse, analyticsResponse] = await Promise.all([
+        authedFetch("/api/admin/books"),
+        authedFetch("/api/analytics")
+      ]);
+
+      if (booksResponse.status === 401 || analyticsResponse.status === 401) {
+        setPasswordAuthed(false);
+        setSession(null);
+        setMessage("Your session expired. Please sign in again.");
+        return;
+      }
+
+      if (!booksResponse.ok || !analyticsResponse.ok) {
+        setMessage("Admin data could not be loaded. Please refresh and try again.");
+        return;
+      }
+
+      setBooks(await booksResponse.json());
+      setAnalytics(await analyticsResponse.json());
+      setMessage("");
+    } catch {
+      setMessage("Admin data could not be loaded. Please check your connection and try again.");
+    }
   }
 
   async function authedFetch(url: string, init: RequestInit = {}) {
@@ -168,7 +186,7 @@ export function AdminClient({ supabaseUrl, supabaseAnonKey }: Props) {
                 <div className="book-stat" key={row.id}><span>{row.title}</span><strong>{row.clicks} clicks / {row.views} views</strong></div>
               ))}
             </>
-          ) : <p>Loading analytics...</p>}
+          ) : <p>{message || "Loading analytics..."}</p>}
         </article>
 
         <article className="admin-card">
