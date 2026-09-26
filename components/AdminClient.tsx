@@ -15,7 +15,9 @@ export function AdminClient({ supabaseUrl, supabaseAnonKey }: Props) {
     return createClient(supabaseUrl, supabaseAnonKey);
   }, [supabaseUrl, supabaseAnonKey]);
   const [session, setSession] = useState<Session | null>(null);
+  const [passwordAuthed, setPasswordAuthed] = useState(false);
   const [email, setEmail] = useState("olugabriel80@gmail.com");
+  const [password, setPassword] = useState("");
   const [books, setBooks] = useState<Book[]>([]);
   const [analytics, setAnalytics] = useState<AnalyticsSummary | null>(null);
   const [message, setMessage] = useState("");
@@ -28,9 +30,15 @@ export function AdminClient({ supabaseUrl, supabaseAnonKey }: Props) {
   }, [supabase]);
 
   useEffect(() => {
-    if (!session) return;
+    fetch("/api/admin/password", { credentials: "include" })
+      .then((response) => setPasswordAuthed(response.ok))
+      .catch(() => setPasswordAuthed(false));
+  }, []);
+
+  useEffect(() => {
+    if (!session && !passwordAuthed) return;
     void loadAdmin();
-  }, [session]);
+  }, [session, passwordAuthed]);
 
   async function signIn() {
     if (!supabase) return;
@@ -43,6 +51,34 @@ export function AdminClient({ supabaseUrl, supabaseAnonKey }: Props) {
     setMessage(error ? error.message : "Check your email for the sign-in link.");
   }
 
+  async function signInWithPassword(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const response = await fetch("/api/admin/password", {
+      method: "POST",
+      credentials: "include",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      setMessage(data.error || "Could not sign in.");
+      return;
+    }
+    setPassword("");
+    setPasswordAuthed(true);
+    setMessage("");
+  }
+
+  async function signOut() {
+    await fetch("/api/admin/password", { method: "DELETE", credentials: "include" });
+    if (supabase) await supabase.auth.signOut();
+    setPasswordAuthed(false);
+    setSession(null);
+    setBooks([]);
+    setAnalytics(null);
+    setMessage("Signed out.");
+  }
+
   async function loadAdmin() {
     const [booksResponse, analyticsResponse] = await Promise.all([
       authedFetch("/api/admin/books"),
@@ -53,12 +89,13 @@ export function AdminClient({ supabaseUrl, supabaseAnonKey }: Props) {
   }
 
   async function authedFetch(url: string, init: RequestInit = {}) {
-    if (!session) throw new Error("Not signed in");
+    if (!session && !passwordAuthed) throw new Error("Not signed in");
     return fetch(url, {
       ...init,
+      credentials: "include",
       headers: {
         ...(init.headers || {}),
-        authorization: `Bearer ${session.access_token}`
+        ...(session ? { authorization: `Bearer ${session.access_token}` } : {})
       }
     });
   }
@@ -93,13 +130,18 @@ export function AdminClient({ supabaseUrl, supabaseAnonKey }: Props) {
     return <section className="admin-card"><h2>Supabase is not configured</h2><p>Add the Supabase environment variables in Vercel to enable the admin page.</p></section>;
   }
 
-  if (!session) {
+  if (!session && !passwordAuthed) {
     return (
       <section className="admin-card sign-in-card">
         <h2>Sign in</h2>
-        <p>Use the admin email address to manage books and analytics.</p>
-        <label>Email <input value={email} onChange={(event) => setEmail(event.target.value)} /></label>
-        <button className="button" type="button" onClick={signIn}>Send sign-in link</button>
+        <p>Use the admin email and password to manage books and analytics. Magic link still works as a backup.</p>
+        <form className="admin-login-form" onSubmit={signInWithPassword}>
+          <label>Email <input value={email} onChange={(event) => setEmail(event.target.value)} /></label>
+          <label>Password <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} /></label>
+          <button className="button" type="submit">Sign in with password</button>
+        </form>
+        <div className="login-divider"><span>or</span></div>
+        <button className="button secondary" type="button" onClick={signIn}>Send sign-in link</button>
         {message ? <p>{message}</p> : null}
       </section>
     );
@@ -109,7 +151,10 @@ export function AdminClient({ supabaseUrl, supabaseAnonKey }: Props) {
     <>
       <section className="admin-grid">
         <article className="admin-card analytics-card">
-          <h2>Analytics</h2>
+          <div className="admin-card-header">
+            <h2>Analytics</h2>
+            <button className="button secondary small-button" type="button" onClick={signOut}>Sign out</button>
+          </div>
           {analytics ? (
             <>
               <div className="metric-grid">
