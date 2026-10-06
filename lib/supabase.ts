@@ -9,7 +9,8 @@ export function hasSupabaseEnv() {
 }
 
 export function hasServiceRoleEnv() {
-  return Boolean(supabaseUrl && serviceRoleKey && serviceRoleKey.split(".").length === 3);
+  const hasSupportedKey = serviceRoleKey?.startsWith("sb_secret_") || serviceRoleKey?.split(".").length === 3;
+  return Boolean(supabaseUrl && serviceRoleKey && hasSupportedKey);
 }
 
 export function getSupabasePublic() {
