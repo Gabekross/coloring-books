@@ -178,8 +178,29 @@ export function AdminClient({ supabaseUrl, supabaseAnonKey }: Props) {
               <div className="metric-grid">
                 <Metric label="Visible books" value={analytics.totals.books} />
                 <Metric label="Amazon clicks" value={analytics.totals.clicks} />
-                <Metric label="Book views" value={analytics.totals.views} />
+                <Metric label="Views today" value={analytics.totals.todayViews} />
                 <Metric label="Clicks today" value={analytics.totals.todayClicks} />
+              </div>
+              <div className="analytics-section-heading">
+                <div>
+                  <h3>Daily activity</h3>
+                  <p>Last 30 days · {analytics.timeZone.replace("_", " ")}</p>
+                </div>
+              </div>
+              <div className="daily-table-wrap">
+                <table className="daily-table">
+                  <thead><tr><th>Date</th><th>Views</th><th>Clicks</th><th>CTR</th></tr></thead>
+                  <tbody>
+                    {analytics.daily.map((row, index) => (
+                      <tr key={row.date} className={index < 2 ? "recent-day" : undefined}>
+                        <th scope="row">{formatDailyDate(row.date, index)}</th>
+                        <td>{row.views}</td>
+                        <td>{row.clicks}</td>
+                        <td>{row.views ? `${((row.clicks / row.views) * 100).toFixed(1)}%` : "—"}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
               <h3>Clicks by book</h3>
               {analytics.byBook.map((row) => (
@@ -229,4 +250,12 @@ export function AdminClient({ supabaseUrl, supabaseAnonKey }: Props) {
 
 function Metric({ label, value }: { label: string; value: number }) {
   return <div className="metric"><span>{label}</span><strong>{value}</strong></div>;
+}
+
+function formatDailyDate(date: string, index: number) {
+  const formatted = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" })
+    .format(new Date(`${date}T12:00:00`));
+  if (index === 0) return `Today · ${formatted}`;
+  if (index === 1) return `Yesterday · ${formatted}`;
+  return formatted;
 }

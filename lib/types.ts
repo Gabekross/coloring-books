@@ -20,7 +20,14 @@ export type AnalyticsSummary = {
     clicks: number;
     views: number;
     todayClicks: number;
+    todayViews: number;
   };
+  timeZone: string;
+  daily: Array<{
+    date: string;
+    views: number;
+    clicks: number;
+  }>;
   byBook: Array<{
     id: string;
     title: string;

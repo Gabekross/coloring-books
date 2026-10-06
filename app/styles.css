@@ -136,6 +136,17 @@ footer { padding: 36px 0 46px; color: var(--muted); font-size: .95rem; }
 .metric { padding: 14px; border: 2px solid var(--line); border-radius: 8px; background: #fffdf7; }
 .metric span { display: block; color: var(--muted); font-weight: 900; }
 .metric strong { display: block; font-size: 2rem; line-height: 1; }
+.analytics-section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin: 24px 0 10px; }
+.analytics-section-heading h3, .analytics-section-heading p { margin: 0; }
+.analytics-section-heading p { margin-top: 3px; color: var(--muted); font-size: .85rem; font-weight: 800; }
+.daily-table-wrap { max-height: 390px; margin-bottom: 24px; overflow: auto; border: 2px solid var(--line); border-radius: 8px; }
+.daily-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.daily-table th, .daily-table td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+.daily-table th:first-child { text-align: left; }
+.daily-table thead th { position: sticky; top: 0; z-index: 1; background: #fffdf7; color: var(--muted); font-size: .78rem; text-transform: uppercase; }
+.daily-table tbody th { font-size: .9rem; }
+.daily-table tbody tr:last-child th, .daily-table tbody tr:last-child td { border-bottom: 0; }
+.daily-table .recent-day { background: #eefaf3; }
 .book-stat { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
 .admin-books { display: grid; gap: 12px; }
 .admin-book { display: grid; grid-template-columns: 86px 1fr; gap: 14px; align-items: center; padding: 12px; border: 2px solid var(--line); border-radius: 8px; }
